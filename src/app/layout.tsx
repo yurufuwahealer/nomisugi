@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { DM_Serif_Display, Noto_Sans_JP, JetBrains_Mono } from "next/font/google";
+import { Providers } from "@/components/Providers";
 import "./globals.css";
 
 const dmSerifDisplay = DM_Serif_Display({
@@ -33,7 +34,7 @@ export default function RootLayout({
       <body
         className={`${dmSerifDisplay.variable} ${notoSansJP.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

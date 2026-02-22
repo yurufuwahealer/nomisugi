@@ -1,3 +1,4 @@
+import { Header } from "@/components/Header";
 import { StreakCard } from "@/components/StreakCard";
 import { CheckinButtons } from "@/components/CheckinButtons";
 import { WeeklyCalendar } from "@/components/WeeklyCalendar";
@@ -28,17 +29,10 @@ const WISHES = [
 
 // --- Page ---
 export default function Home() {
-  const today = new Date();
-  const dateStr = `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`;
-
   return (
     <div className="min-h-screen px-4 py-6">
       <div className="max-w-md mx-auto flex flex-col gap-6">
-        {/* Header */}
-        <header>
-          <h1 className="font-serif text-2xl text-text">NOMISUGI</h1>
-          <p className="text-sm text-text3">{dateStr}</p>
-        </header>
+        <Header />
 
         <StreakCard streakDays={STREAK_DAYS} />
         <CheckinButtons checkedIn={CHECKED_IN} />
