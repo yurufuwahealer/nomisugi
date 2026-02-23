@@ -37,6 +37,35 @@ async function main() {
 
   console.log(`Seeded habit: ${habit.name} (id: ${habit.id})`);
 
+  // --- サンプル Wish データ ---
+  const wish1 = await prisma.wish.upsert({
+    where: { id: "seed-wish-airpods" },
+    update: {},
+    create: {
+      id: "seed-wish-airpods",
+      userId: user.id,
+      name: "AirPods Pro",
+      price: 39800,
+      emoji: "🎧",
+      type: "item",
+    },
+  });
+  console.log(`Seeded wish: ${wish1.name} (id: ${wish1.id})`);
+
+  const wish2 = await prisma.wish.upsert({
+    where: { id: "seed-wish-onsen" },
+    update: {},
+    create: {
+      id: "seed-wish-onsen",
+      userId: user.id,
+      name: "温泉旅行",
+      price: 30000,
+      emoji: "✈️",
+      type: "experience",
+    },
+  });
+  console.log(`Seeded wish: ${wish2.name} (id: ${wish2.id})`);
+
   // --- サンプル Checkin データ ---
   // 今日から遡って数日分のチェックインを作成
   const now = new Date();

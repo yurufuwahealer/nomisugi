@@ -9,12 +9,6 @@ import { SavingsSummary } from "@/components/SavingsSummary";
 import { WishList } from "@/components/WishList";
 import Link from "next/link";
 
-// --- Wish モックデータ（後続タスクで実データ化） ---
-const WISHES = [
-  { emoji: "🎧", name: "AirPods Pro", price: 39800, savedYen: 0 },
-  { emoji: "✈️", name: "温泉旅行", price: 30000, savedYen: 0 },
-];
-
 /** 今日/昨日から遡って連続 didDrink=false の日数を数える */
 async function calcStreak(userId: string): Promise<number> {
   const today = getTodayJST();
@@ -121,8 +115,18 @@ export default async function Home() {
   const savedYen = savingsAgg._sum.savedYen ?? 0;
   const savedKcal = savingsAgg._sum.savedKcal ?? 0;
 
-  // --- Wish の savedYen を反映 ---
-  const wishesWithSaved = WISHES.map((w) => ({ ...w, savedYen }));
+  // --- Wish を DB から取得 ---
+  const wishes = await prisma.wish.findMany({
+    where: { userId },
+    orderBy: { createdAt: "asc" },
+  });
+
+  const wishesWithSaved = wishes.map((w) => ({
+    emoji: w.emoji,
+    name: w.name,
+    price: w.price,
+    savedYen,
+  }));
 
   return (
     <div className="min-h-screen px-4 py-6">
