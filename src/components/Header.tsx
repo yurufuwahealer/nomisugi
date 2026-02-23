@@ -1,4 +1,5 @@
 import { auth, signOut } from "@/auth";
+import Link from "next/link";
 
 export async function Header() {
   const session = await auth();
@@ -21,6 +22,13 @@ export async function Header() {
             />
           )}
           <span className="text-sm text-text2">{session.user.name}</span>
+          <Link
+            href="/settings"
+            className="text-sm text-text3 hover:text-text transition"
+            title="設定"
+          >
+            ⚙
+          </Link>
           <form
             action={async () => {
               "use server";
